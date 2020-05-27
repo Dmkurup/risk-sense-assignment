@@ -1,26 +1,35 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
+import axios from 'axios';
+import "./App.css";
+import PageFooter from './components/pageFooter';
+import PageHeader from './components/pageHeader';
+import SearchBar from './components/searchBar';
+import JobListing from './components/jobListing';
+import FilterParams from './components/filterParams';
+import NewsFeed from './components/newsFeed';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+class App extends Component {
+  state = {
+    data:[]
+    }
+  async componentDidMount() {
+    const {data}=await axios.get("http://localhost:9090/api/jobdescriptions");
+    this.setState({data});
+    console.log("DESC",data);
+  }
+  render() { 
+    return ( 
+      <React.Fragment>
+        <PageHeader/>
+        <SearchBar/>
+        <JobListing descriptions={this.state.data}/>
+        <FilterParams/>
+        <NewsFeed/>
+        <PageFooter/>
+      </React.Fragment>
   );
+  }
 }
+ 
 
 export default App;
