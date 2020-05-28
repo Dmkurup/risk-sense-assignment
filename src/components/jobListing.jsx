@@ -32,12 +32,6 @@ class JobListing extends Component {
     this.setState({ currentPage: page });
   };
 
-  handleSearch = () => {
-    this.context.router.push(`'/search/${this.state.query}/some-action'`);
-  };
-  queryChange = (evt) => {
-    this.setState({ query: evt.target.value });
-  };
 
   handleChange = ({ currentTarget: input }) => {
     const job = { ...this.state.data };
