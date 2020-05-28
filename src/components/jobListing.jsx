@@ -59,10 +59,13 @@ class JobListing extends Component {
     const { jobs: allJobs, pageSize, currentPage } = this.state;
     const jobs = paginate(allJobs, currentPage, pageSize);
     const totalCount = allJobs.length;
-
+    const displayMsg = totalCount===0? "There are no matching results in the database":`Showing ${totalCount} results from the data base`;
+   
     return (
       <React.Fragment>
         {/* <SearchBox value={searchQuery} onChange={this.handleSearch} /> */}
+        
+        <p>{displayMsg}</p>
         <div className="row">
           <div className="col-3">
             <form className="form-group" onSubmit={this.handleSubmit}>
@@ -83,6 +86,17 @@ class JobListing extends Component {
                 value={this.state.data.location}
                 onChange={this.handleChange}
                 id="location"
+                type="text"
+                className="form-control"
+              />
+            </form>
+            <form className="form-group" onSubmit={this.handleSubmit}>
+              <label htmlFor="title">Title</label>
+              <input
+                name="title"
+                value={this.state.data.title}
+                onChange={this.handleChange}
+                id="title"
                 type="text"
                 className="form-control"
               />
