@@ -31,23 +31,25 @@ class JobListing extends Component {
   handlePageChange = (page) => {
     this.setState({ currentPage: page });
   };
-
+//search?job_type=Full%20Time&location=Bangalore"
+//`http://localhost:9090/api/jobdescriptions/search?${queryName}=${queryVal}`
 
   handleChange = ({ currentTarget: input }) => {
     const job = { ...this.state.data };
     job[input.name] = input.value;
 
     this.setState({ data: job, queryName: input.name, queryVal: input.value });
-    console.log("HANDLECHNGE", input.value);
+
   };
 
   handleSubmit = async (e) => {
-    let { queryName, queryVal } = this.state;
-    queryName = queryName === "jobType" ? "job_type" : queryName;
+    const {title,location,jobType} = this.state.data;
+    //let { queryName, queryVal } = this.state;
+   // queryName = queryName === "jobType" ? "job_type" : queryName;
     e.preventDefault();
 
     const { data } = await axios.get(
-      `http://localhost:9090/api/jobdescriptions/search?${queryName}=${queryVal}`
+      `http://localhost:9090/api/jobdescriptions/search?location=${location}&title=${title}&job_type=${jobType}`
     );
 
     this.setState({ jobs: data });
