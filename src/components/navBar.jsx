@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React  from "react";
 
 const NavBar = () => {
   return (
@@ -18,13 +18,13 @@ const NavBar = () => {
       <div className="collapse navbar-collapse" id="navbarNav">
         <ul className="nav justify-content-end">
           <li className="nav-item">
-            <a className="nav-link active">
+            <a href="#" className="nav-link active">
               HOW IT WORKS 
             </a>
           </li>
           <li className="nav-item">
           <a
-            class="nav-link dropdown-toggle active"
+            className="nav-link dropdown-toggle active"
             id="navbarDropdownMenuLink"
             role="button"
             data-toggle="dropdown"

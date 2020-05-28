@@ -3,17 +3,22 @@ import { Layout } from "antd";
 
 import "./App.css";
 import PageFooter from "./components/pageFooter";
-import PageHeader from "./components/pageHeader";
-import SearchBar from "./components/searchBar";
-import SearchBox from "./components/searchBox";
+// import PageHeader from "./components/pageHeader";
+// import SearchBar from "./components/searchBar";
+// import SearchBox from "./components/searchBox";
 import JobListing from "./components/jobListing";
-import FilterParams from "./components/filterParams";
-import NewsFeed from "./components/newsFeed";
+// import FilterParams from "./components/filterParams";
+// import NewsFeed from "./components/newsFeed";
 import NavBar from "./components/navBar";
 
 class App extends Component {
   render() {
-    const { Header, Footer, Sider, Content } = Layout;
+    const { 
+      // Header,
+       Footer, 
+      //  Sider, 
+      //  Content 
+      } = Layout;
     return (
       <React.Fragment>
         <NavBar/>

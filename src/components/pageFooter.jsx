@@ -43,13 +43,13 @@ class PageFooter extends Component {
               <h6>SOCIAL</h6>
               <ul className="list-unstyled">
                 <li>
-                  <i class="fa fa-twitter" aria-hidden="true"></i>
+                  <i className="fa fa-twitter" aria-hidden="true"></i>
                 </li>
                 <li>
-                  <i class="fa fa-facebook" aria-hidden="true"></i>
+                  <i className="fa fa-facebook" aria-hidden="true"></i>
                 </li>
                 <li>
-                  <i class="fa fa-instagram" aria-hidden="true"></i>
+                  <i className="fa fa-instagram" aria-hidden="true"></i>
                 </li>
               </ul>
             </div>

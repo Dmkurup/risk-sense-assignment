@@ -1,5 +1,5 @@
-import React, { Fragment, Component } from "react";
-import { Button, Badge } from "antd";
+import React, {  Component } from "react";
+// import { Button, Badge } from "antd";
 class Job extends Component {
   state = {};
   render() {
@@ -32,9 +32,9 @@ class Job extends Component {
           </a>
 
           <p className="card-text">{desciption}</p>
-          {skillSet.map((skill, i) => (
+          {skillSet.map((skill, index) => (
             <button
-              id={i}
+              key={index}
               className="btn btn-small btn-light"
               style={{ borderRadius: "16px" }}
             >

@@ -1,19 +1,24 @@
 import React, { Component } from "react";
 import Job from "./job";
-import FilterParams from "./filterParams";
+import Filter from "./filter";
 import Pagination from "./pagination";
 import axios from "axios";
 import _ from "lodash";
 import { paginate } from "./paginate";
-import SearchBox from "./searchBox";
+// import SearchBox from "./searchBox";
 
 class JobListing extends Component {
   state = {
     jobs: [],
+    data: {
+      title: "",
+      jobType: "",
+      location: "",
+    },
     pageSize: 4,
     currentPage: 1,
-    selectedType: "",
-    searchQuery: "",
+    queryName: "",
+    queryVal: "",
   };
 
   async componentDidMount() {
@@ -21,39 +26,74 @@ class JobListing extends Component {
       "http://localhost:9090/api/jobdescriptions"
     );
     this.setState({ jobs });
-    console.log("DESC", jobs);
   }
 
   handlePageChange = (page) => {
     this.setState({ currentPage: page });
   };
 
-  handleSearch = (query) => {
-    this.setState({ searchQuery: query, currentPage: 1, selectedType: "" });
+  handleSearch = () => {
+    this.context.router.push(`'/search/${this.state.query}/some-action'`);
+  };
+  queryChange = (evt) => {
+    this.setState({ query: evt.target.value });
+  };
+
+  handleChange = ({ currentTarget: input }) => {
+    const job = { ...this.state.data };
+    job[input.name] = input.value;
+
+    this.setState({ data: job, queryName: input.name, queryVal: input.value });
+    console.log("HANDLECHNGE", input.value);
+  };
+
+  handleSubmit = async (e) => {
+    let { queryName, queryVal } = this.state;
+    queryName = queryName === "jobType" ? "job_type" : queryName;
+    e.preventDefault();
+
+    const { data } = await axios.get(
+      `http://localhost:9090/api/jobdescriptions/search?${queryName}=${queryVal}`
+    );
+
+    this.setState({ jobs: data });
   };
 
   render() {
-    const {
-      jobs: allJobs,
-      selectedType,
-      pageSize,
-      currentPage,
-      searchQuery,
-    } = this.state;
-    const filteredJobs = selectedType
-      ? allJobs.filter((j) => j.jobType === selectedType)
-      : allJobs;
-    const jobs = paginate(filteredJobs, currentPage, pageSize);
-    const totalCount = filteredJobs.length;
+    const { jobs: allJobs, pageSize, currentPage } = this.state;
+    const jobs = paginate(allJobs, currentPage, pageSize);
+    const totalCount = allJobs.length;
+
     return (
       <React.Fragment>
-        <SearchBox value={searchQuery} onChange={this.handleSearch} />
+        {/* <SearchBox value={searchQuery} onChange={this.handleSearch} /> */}
         <div className="row">
           <div className="col-3">
-            <FilterParams />
+            <form className="form-group" onSubmit={this.handleSubmit}>
+              <label htmlFor="jobType">Job Type</label>
+              <input
+                name="jobType"
+                value={this.state.data.jobType}
+                onChange={this.handleChange}
+                id="jobType"
+                type="text"
+                className="form-control"
+              />
+            </form>
+            <form className="form-group" onSubmit={this.handleSubmit}>
+              <label htmlFor="location">Location</label>
+              <input
+                name="location"
+                value={this.state.data.location}
+                onChange={this.handleChange}
+                id="location"
+                type="text"
+                className="form-control"
+              />
+            </form>
           </div>
           <div className="col">
-            <h6>RESULT</h6>
+            <h6 className="text-center">RESULT</h6>
             <ul>
               {jobs.map((job) => (
                 <Job key={job.id} job={job} />
@@ -64,7 +104,6 @@ class JobListing extends Component {
               pageSize={pageSize}
               onPageChange={this.handlePageChange}
               currentPage={currentPage}
-              
             />
           </div>
         </div>
