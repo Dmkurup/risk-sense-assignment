@@ -4,22 +4,27 @@ import "./App.css";
 import PageFooter from "./components/pageFooter";
 import JobListing from "./components/jobListing";
 import NavBar from "./components/navBar";
+import NewsFeed from "./components/newsFeed";
 
 class App extends Component {
   render() {
-    const { Footer } = Layout;
+    const { Header, Footer, Sider, Content } = Layout;
     return (
-      <React.Fragment>
+      <Layout>
+        <Header style={{ backgroundColor: "#777799" }} />
         <NavBar />
-        <main className="container">
-          <JobListing />
-        </main>
+        <Layout>
+          <Content>
+            <JobListing />
+          </Content>
+        </Layout>
         <Footer style={{ backgroundColor: "#777799" }}>
           <PageFooter />
         </Footer>
-      </React.Fragment>
+      </Layout>
     );
   }
 }
 
 export default App;
+
